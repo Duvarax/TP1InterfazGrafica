@@ -36,12 +36,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try{
-                    if(binding.rbDolaresAEuros.isChecked()){
-                        mv.convertirDolarAEuro(Double.parseDouble(binding.etDolares.getText().toString()));
-                    }
-                    if(binding.rbEurosADolar.isChecked()){
-                        mv.convertirEuroADolar(Double.parseDouble(binding.etEuros.getText().toString()));
-                    }
+                   mv.convertir(binding.rbDolaresAEuros.isChecked(), Double.parseDouble(binding.etCantidad.getText().toString()));
                 }catch(NumberFormatException empetyString){
                     Toast.makeText(context, "Debe ingresar la cantidad de la moneda para hacer la conversion", Toast.LENGTH_SHORT).show();
                 }
@@ -52,15 +47,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 binding.rbEurosADolar.setChecked(false);
-                binding.etEuros.setText("");
+                binding.etCantidad.setText("");
             }
         });
         binding.rbEurosADolar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 binding.rbDolaresAEuros.setChecked(false);
-                binding.etDolares.setText("");
+                binding.etCantidad.setText("");
             }
         });
+
+
     }
 }

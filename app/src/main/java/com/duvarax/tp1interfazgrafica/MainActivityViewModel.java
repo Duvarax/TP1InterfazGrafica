@@ -1,7 +1,10 @@
 package com.duvarax.tp1interfazgrafica;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.widget.EditText;
+import android.widget.RadioButton;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -37,6 +40,13 @@ public class MainActivityViewModel extends AndroidViewModel {
             valorConvertido.setValue(euro*1.08);
         }catch(Exception e){
             System.out.println(e);
+        }
+    }
+    public void convertir(Boolean dolarAEuro, Double cantidad){
+        if (dolarAEuro){
+            convertirDolarAEuro(cantidad);
+        }else{
+            convertirEuroADolar(cantidad);
         }
     }
 }
