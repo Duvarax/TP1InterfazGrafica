@@ -3,18 +3,23 @@ package com.duvarax.tp1interfazgrafica;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import java.util.Locale;
+
 public class MainActivityViewModel extends AndroidViewModel {
 
     private Context context;
     private MutableLiveData<Double> valorConvertido;
+    private MutableLiveData<Boolean> rbActivado;
 
     public MainActivityViewModel(@NonNull Application application) {
         super(application);
@@ -26,6 +31,23 @@ public class MainActivityViewModel extends AndroidViewModel {
             valorConvertido = new MutableLiveData<>();
         }
         return valorConvertido;
+    }
+
+    public LiveData<Boolean> getRbActivado(){
+        if(rbActivado == null){
+            rbActivado = new MutableLiveData<>();
+        }
+        return rbActivado;
+    }
+
+
+    public void desactivarEt(String x){
+        if(x.equalsIgnoreCase("euros a dolares")){
+            rbActivado.setValue(true);
+        }else{
+            rbActivado.setValue(false);
+        }
+
     }
 
     public void convertirDolarAEuro(Double dolar){
@@ -42,11 +64,14 @@ public class MainActivityViewModel extends AndroidViewModel {
             System.out.println(e);
         }
     }
-    public void convertir(Boolean dolarAEuro, Double cantidad){
-        if (dolarAEuro){
-            convertirDolarAEuro(cantidad);
-        }else{
-            convertirEuroADolar(cantidad);
+    public void convertir(String etEuros, String etDolares){
+        System.out.println(etDolares.length());
+        System.out.println(etEuros.length());
+        if(etEuros.length() > 0){
+            convertirEuroADolar(Double.parseDouble(etEuros));
+        }
+        if(etDolares.length() > 0){
+            convertirDolarAEuro(Double.parseDouble(etDolares));
         }
     }
 }

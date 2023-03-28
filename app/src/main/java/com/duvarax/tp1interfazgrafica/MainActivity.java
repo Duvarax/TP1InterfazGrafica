@@ -31,33 +31,36 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        mv.getRbActivado().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                binding.etEuros.setText("");
+                binding.etDolares.setText("");
+
+                binding.etEuros.setEnabled(aBoolean);
+                binding.etDolares.setEnabled(!aBoolean);
+            }
+        });
+
+
+        binding.rbEurosADolares.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mv.desactivarEt(binding.rbEurosADolares.getText().toString());
+            }
+        });
+        binding.rbDolaresAEuros.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mv.desactivarEt(binding.rbDolaresAEuros.getText().toString());
+            }
+        });
 
         binding.btnConvertir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try{
-                   mv.convertir(binding.rbDolaresAEuros.isChecked(), Double.parseDouble(binding.etCantidad.getText().toString()));
-                }catch(NumberFormatException empetyString){
-                    Toast.makeText(context, "Debe ingresar la cantidad de la moneda para hacer la conversion", Toast.LENGTH_SHORT).show();
-                }
+                mv.convertir(binding.etEuros.getText().toString(), binding.etDolares.getText().toString());
             }
         });
-
-        binding.rbDolaresAEuros.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                binding.rbEurosADolar.setChecked(false);
-                binding.etCantidad.setText("");
-            }
-        });
-        binding.rbEurosADolar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                binding.rbDolaresAEuros.setChecked(false);
-                binding.etCantidad.setText("");
-            }
-        });
-
-
     }
 }
