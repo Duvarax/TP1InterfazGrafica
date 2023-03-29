@@ -65,8 +65,6 @@ public class MainActivityViewModel extends AndroidViewModel {
         }
     }
     public void convertir(String etEuros, String etDolares){
-        System.out.println(etDolares.length());
-        System.out.println(etEuros.length());
         if(etEuros.length() > 0){
             convertirEuroADolar(Double.parseDouble(etEuros));
         }
